@@ -33,7 +33,7 @@ class MemosController extends Controller
         $memo->content = $request->content;
         $memo->user_id = $request->user()->id;
         $memo->save();
-        return redirect()->route('memos.mypage', Auth::user()->name);
+        return redirect()->route('memos.mypage');
     }
 
     public function edit(Request $request){
@@ -45,17 +45,18 @@ class MemosController extends Controller
         $memo = Memo::find($request->id);
         $content = $request->validate(['content'=>'required|max:500']);
         $memo->fill($content)->save();
-        return redirect()->route('memos.mypage',Auth::user()->name);
+        return redirect()->route('memos.mypage');
     }
 
     public function delete(Request $request){
         $memo = Memo::find($request->id);
         $memo->delete();
-        return redirect()->route('memos.mypage',Auth::user()->name);
+        return redirect()->route('memos.mypage');
     }
     
-    public function mypage($user){
-        $memos = User::find($user)->memos()->paginate(5);
+    public function mypage(){
+        $user = Auth::user();
+        $memos = User::find($user->id)->memos()->paginate(5);
         // $memos = Memo::where('user_id', 1)->paginate(2);
         return view('memos.index', ['memos'=> $memos]);
     }
