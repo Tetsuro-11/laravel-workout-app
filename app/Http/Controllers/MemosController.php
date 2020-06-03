@@ -17,7 +17,7 @@ class MemosController extends Controller
 
     public function index(){
         // $memos = Memo:: orderBy('created_at', 'desc')->get();
-        $memos = Memo::latest()->paginate(5);
+        $memos = Memo::latest()->paginate(15);
         return view('memos.index', ['memos'=> $memos]);
     }
 
@@ -56,15 +56,13 @@ class MemosController extends Controller
     
     public function mypage(){
         $user = Auth::user();
-        $memos = User::find($user->id)->memos()->paginate(5);
-        // $memos = Memo::where('user_id', 1)->paginate(2);
+        $memos = User::find($user->id)->memos()->paginate(15);
         return view('memos.index', ['memos'=> $memos]);
     }
 
     public function search(Request $request)
     {
         $keyword = $request->input('keyword');
-        // $stock = $request->input('stock');
  
         $query = Memo::query();
  
@@ -72,7 +70,7 @@ class MemosController extends Controller
             $query->where('content', 'LIKE', "%{$keyword}%");
         }
  
-        $memos = $query->paginate(5);
+        $memos = $query->paginate(15);
  
         return view('memos.index', ['memos'=>$memos]);
     }
