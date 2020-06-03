@@ -94,7 +94,7 @@
                         @csrf
                     </form>
                     
-                    <a href="{{ url('/mypage/'.auth()->user()->id) }}">MyWorkout</a>
+                    <a href="{{ url('/mypage/') }}">MyWorkout</a>
                     
                     @else
                         <a href="{{ route('login') }}">Login</a>

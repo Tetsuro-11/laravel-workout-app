@@ -35,7 +35,7 @@ Route::post('memos/update', 'MemosController@update')->name('memos.update');
 
 Route::get('memos/delete', 'MemosController@delete')->name('memos.delete');
 
-Route::get('mypage/{user}', 'MemosController@mypage')->name('memos.mypage');
+Route::get('mypage/', 'MemosController@mypage')->name('memos.mypage');
 
 Auth::routes();
 
